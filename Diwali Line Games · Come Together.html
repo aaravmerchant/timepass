@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Diwali Line Games · Come Together</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@500;700&display=swap">
+<style>
+:root{--bg:#fff7e6;--card:#fff;--ink:#2b1a10;--mut:#7a5c44;--gold:#e0951a;--sf:#d9531e;--sea:#1f6f8b;--line:#f0d9b0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#16203a;--card:#1f2c4d;--ink:#fff1d6;--mut:#c4b08a;--gold:#f6c453;--sf:#ff8a4c;--sea:#6cc3e0;--line:#37456c}}
+:root[data-theme=dark]{--bg:#16203a;--card:#1f2c4d;--ink:#fff1d6;--mut:#c4b08a;--gold:#f6c453;--sf:#ff8a4c;--sea:#6cc3e0;--line:#37456c}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:500 17px/1.5 Nunito,system-ui,sans-serif}
+h1,h2,h3{font-family:"Baloo 2",system-ui,sans-serif;line-height:1.1;margin:0}
+main{max-width:640px;margin:0 auto;padding:18px 16px 60px}
+.hero{text-align:center;padding:22px 8px 8px}
+.hero h1{font-size:2.5rem;font-weight:800}.hero p{color:var(--mut);margin:.5rem 0}
+.diya{font-size:3.2rem;display:inline-block;animation:fl 2.4s ease-in-out infinite}
+@keyframes fl{50%{transform:scale(1.1) rotate(-4deg);filter:drop-shadow(0 0 14px var(--gold))}}
+@media(prefers-reduced-motion:reduce){.diya{animation:none}}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}
+.tile{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:14px;text-align:left;font:inherit;color:inherit;cursor:pointer;min-height:112px}
+.tile b{display:block;font:800 1.2rem "Baloo 2",sans-serif}.tile span{font-size:.9rem;color:var(--mut)}.tile i{font-style:normal;font-size:2rem;display:block}
+.tile:hover{border-color:var(--gold)}
+button:focus-visible{outline:3px solid var(--sea);outline-offset:2px}
+.game{display:none}.game.on{display:block}
+.back{background:none;border:0;color:var(--sea);font:700 1rem Nunito,sans-serif;cursor:pointer;padding:8px 0}
+.panel{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:16px;margin-top:8px}
+.btn{background:var(--sf);color:#fff;border:0;border-radius:12px;padding:12px 18px;font:800 1rem "Baloo 2",sans-serif;cursor:pointer}
+.btn.alt{background:var(--sea)}
+.mem{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}
+.mem button{aspect-ratio:1;font-size:2rem;border-radius:14px;border:2px solid var(--line);background:var(--bg);cursor:pointer}
+.mem button.up{background:#fff3c4}.mem button.done{background:#d7f2d0;opacity:.8}
+.opts{display:grid;gap:10px;margin-top:12px}.opts button{text-align:left;padding:12px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;cursor:pointer}
+.opts .ok{background:#d7f2d0;color:#1c3a14;border-color:#59b04a}.opts .no{background:#fbd9d0;color:#4a1a10;border-color:#d9534f}
+.bar{height:16px;background:var(--line);border-radius:9px;overflow:hidden;margin:10px 0}.bar div{height:100%;width:0;background:var(--sea);transition:width .3s}
+.wave{font-size:3.4rem;text-align:center;margin:6px 0;transition:transform .2s}
+.big{width:100%;font-size:1.3rem;padding:18px}
+.rg{display:grid;grid-template-columns:repeat(9,1fr);gap:2px;max-width:360px;margin:10px auto;touch-action:manipulation}
+.rg button{aspect-ratio:1;border:0;border-radius:4px;background:var(--bg);cursor:pointer;padding:0}
+.pal{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}.pal button{width:40px;height:40px;border-radius:50%;border:3px solid transparent;cursor:pointer}.pal button.sel{border-color:var(--ink)}
+.tiles{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:12px 0}.tiles button{width:46px;height:52px;font:800 1.5rem "Baloo 2",sans-serif;border-radius:10px;border:2px solid var(--gold);background:var(--bg);color:var(--ink);cursor:pointer}
+.ans{min-height:56px;display:flex;gap:6px;justify-content:center;border-bottom:3px dashed var(--line);padding-bottom:6px}.ans span{width:46px;height:52px;font:800 1.5rem "Baloo 2";display:grid;place-items:center;background:#fff3c4;color:#2b1a10;border-radius:10px}
+.card{font:800 1.5rem/1.3 "Baloo 2",sans-serif;text-align:center;padding:24px 8px}
+.msg{min-height:1.6em;font-weight:700;color:var(--sea);text-align:center}
+footer{text-align:center;color:var(--mut);font-size:.9rem;margin-top:28px}footer a{color:var(--sea)}
+</style></head><body><main>
+<div id="home">
+<div class="hero"><div class="diya">🪔</div><h1>Come Together</h1><p>Happy Diwali! Pick a game while you wait. Play alone or pass the phone.</p></div>
+<div class="grid" id="tiles"></div>
+<footer>Jai Swaminarayan 🙏 · Learn more at <a href="https://www.baps.org" target="_blank" rel="noopener">baps.org</a><br>Nothing is saved or collected on this page.</footer>
+</div>
+
+<section class="game" id="g-memory"><button class="back">‹ All games</button><h2>Diya Memory</h2>
+<div class="panel"><div class="msg" id="mm">Flip two cards to find a pair.</div><div class="mem" id="mem"></div><button class="btn" id="mr">New game</button></div></section>
+
+<section class="game" id="g-quiz"><button class="back">‹ All games</button><h2>Diwali Quiz</h2>
+<div class="panel"><div id="qn" style="color:var(--mut)"></div><h3 id="qq"></h3><div class="opts" id="qo"></div><div class="msg" id="qf"></div><button class="btn alt" id="qnext" hidden>Next</button></div></section>
+
+<section class="game" id="g-tetodi"><button class="back">‹ All games</button><h2>Tetodi Team</h2>
+<div class="panel"><p>The little tetodi bird scooped the ocean's water, drop by drop, to save her eggs. Tap to carry a drop. When others join, it goes faster, so hand the phone to someone and keep going!</p>
+<div class="wave" id="tw">🌊 🐦 🥚</div><div class="bar"><div id="tb"></div></div><div class="msg" id="tm">Tap the button to start.</div>
+<button class="btn big" id="tt">💧 Carry a drop</button><p id="tc" style="text-align:center;color:var(--mut)">Helpers: 1 · Drops: 0</p><button class="btn alt" id="tj">🙋 Pass the phone: a new helper joins</button></div></section>
+
+<section class="game" id="g-rangoli"><button class="back">‹ All games</button><h2>Rangoli Maker</h2>
+<div class="panel"><p style="margin-top:0">Tap squares to color. Your pattern mirrors on all four sides.</p><div class="pal" id="pal"></div><div class="rg" id="rg"></div><button class="btn" id="rc">Clear</button></div></section>
+
+<section class="game" id="g-word"><button class="back">‹ All games</button><h2>Word Scramble</h2>
+<div class="panel"><div id="wh" style="color:var(--mut)"></div><div class="ans" id="wa"></div><div class="tiles" id="wt"></div><div class="msg" id="wm"></div><button class="btn alt" id="wr">Reset letters</button> <button class="btn" id="wn">Next word</button></div></section>
+
+<section class="game" id="g-chal"><button class="back">‹ All games</button><h2>Line Challenges</h2>
+<div class="panel"><div class="card" id="cc">Tap for a challenge!</div><button class="btn big" id="cb">🎲 New challenge</button></div></section>
+</main>
+<script>
+const $=s=>document.querySelector(s),sh=a=>[...a].sort(()=>Math.random()-.5);
+const games=[['memory','🪔','Diya Memory','Match the pairs'],['quiz','❓','Diwali Quiz','Test the family'],['tetodi','🐦','Tetodi Team','Small efforts, big change'],['rangoli','🎨','Rangoli Maker','Design a pattern'],['word','🔤','Word Scramble','Unscramble Diwali words'],['chal','🎲','Line Challenges','Fun things to do together']];
+$('#tiles').innerHTML=games.map(g=>`<button class="tile" data-g="${g[0]}"><i>${g[1]}</i><b>${g[2]}</b><span>${g[3]}</span></button>`).join('');
+function show(id){$('#home').style.display=id?'none':'';document.querySelectorAll('.game').forEach(e=>e.classList.toggle('on',e.id=='g-'+id));scrollTo(0,0);if(id=='memory')mem();if(id=='quiz')quiz();if(id=='word')word();}
+document.querySelectorAll('.tile').forEach(t=>t.onclick=()=>show(t.dataset.g));
+document.querySelectorAll('.back').forEach(b=>b.onclick=()=>show(''));
+// Memory
+let first=null,lock=0,pairs=0,moves=0;
+function mem(){const e=['🪔','🎆','🍬','🌸','🏮','🪷','🎇','🙏'];pairs=0;moves=0;first=null;$('#mm').textContent='Flip two cards to find a pair.';
+$('#mem').innerHTML='';sh([...e,...e]).forEach(v=>{const b=document.createElement('button');b.setAttribute('aria-label','card');b.dataset.v=v;b.onclick=()=>{if(lock||b==first||b.classList.contains('done'))return;b.textContent=v;b.classList.add('up');if(!first){first=b;return}moves++;
+if(first.dataset.v==v){first.className=b.className='done';first=null;if(++pairs==8)$('#mm').textContent='🎉 All matched in '+moves+' moves!'}else{lock=1;const f=first;first=null;setTimeout(()=>{f.textContent=b.textContent='';f.classList.remove('up');b.classList.remove('up');lock=0},700)}};$('#mem').append(b)})}
+$('#mr').onclick=mem;
+// Quiz
+const Q=[['What does Diwali celebrate?',['The victory of light over darkness','The start of summer','A harvest of rice'],0],['What are the small clay lamps called?',['Diyas','Drums','Dosas'],0],['Colorful floor designs made at the door are called…',['Rangoli','Origami','Mosaic'],0],['Diwali tells of Lord Ram returning to which city?',['Ayodhya','Delhi','Mumbai'],0],['In the Tetodi story, what does the bird try to save?',['Her eggs','Her nest of sticks','Her fish'],0],['Annakut, after Diwali, means a mountain of…',['Food offered to God','Flowers','Lights'],0],['In the story, what happened when other birds joined in?',['They moved even the mighty ocean','The ocean got louder','Nothing changed'],0],['Which is a way to practice seva?',['Helping others without expecting anything','Winning a race','Saving a seat'],0]];
+let qi=0,qs=0,order=[];
+function quiz(){qi=0;qs=0;order=sh(Q);qa()}
+function qa(){const q=order[qi];if(!q){$('#qn').textContent='';$('#qq').textContent='You got '+qs+' of '+Q.length+'! 🎉';$('#qo').innerHTML='';$('#qf').textContent='';$('#qnext').hidden=false;$('#qnext').textContent='Play again';return}
+$('#qn').textContent='Question '+(qi+1)+' of '+Q.length;$('#qq').textContent=q[0];$('#qf').textContent='';$('#qnext').hidden=true;$('#qnext').textContent='Next';
+$('#qo').innerHTML='';sh(q[1].map((t,i)=>[t,i])).forEach(([t,i])=>{const b=document.createElement('button');b.textContent=t;b.onclick=()=>{if(!$('#qnext').hidden)return;const ok=i==q[2];if(ok)qs++;b.classList.add(ok?'ok':'no');if(!ok)[...$('#qo').children].find(x=>x.textContent==q[1][q[2]]).classList.add('ok');$('#qf').textContent=ok?'Correct! 🌟':'Good try! Now you know.';$('#qnext').hidden=false};$('#qo').append(b)})}
+$('#qnext').onclick=()=>{if(qi>=Q.length)quiz();else{qi++;qa()}};
+// Tetodi
+let drops=0,helpers=1;
+const msgs=[[10,'The waves are still big, but she keeps going.'],[30,'Another bird notices the effort…'],[60,'More birds join. The water is dropping!'],[100,'Together, they moved the mighty ocean! 🌊➡️🏖️']];
+function tUp(){const goal=100;$('#tb').style.width=Math.min(100,drops/goal*100)+'%';$('#tc').textContent='Helpers: '+helpers+' · Drops: '+drops;
+const m=[...msgs].reverse().find(x=>drops>=x[0]);if(m)$('#tm').textContent=m[1];$('#tw').style.transform='scale('+(1+Math.min(drops,100)/400)+')'}
+$('#tt').onclick=()=>{drops+=helpers;tUp()};
+$('#tj').onclick=()=>{helpers++;drops+=5;$('#tm').textContent='A new helper joined! Each tap now counts '+helpers+'.';tUp()};
+// Rangoli
+const cols=['#e8451e','#f6a81c','#d62b8a','#7b3fb5','#1f9a8a','#2e6fd1','#ffffff'];let cur=cols[0];const N=9,cells=[];
+$('#pal').innerHTML=cols.map((c,i)=>`<button style="background:${c};border:3px solid ${i?'transparent':'var(--ink)'}" class="${i?'':'sel'}" data-c="${c}" aria-label="color ${i+1}"></button>`).join('');
+$('#pal').onclick=e=>{const b=e.target.closest('button');if(!b)return;cur=b.dataset.c;[...$('#pal').children].forEach(x=>x.classList.toggle('sel',x==b))};
+for(let i=0;i<N*N;i++){const b=document.createElement('button');b.setAttribute('aria-label','square');b.onclick=()=>{const r=Math.floor(i/N),c=i%N;[[r,c],[r,N-1-c],[N-1-r,c],[N-1-r,N-1-c]].forEach(([y,x])=>cells[y*N+x].style.background=cur)};cells.push(b);$('#rg').append(b)}
+$('#rc').onclick=()=>cells.forEach(c=>c.style.background='');
+// Words
+const W=[['DIYA','A small clay lamp'],['LIGHT','What Diwali celebrates'],['RANGOLI','Art made at the door'],['SWEETS','Yummy treats to share'],['FAMILY','Who you celebrate with'],['SEVA','Selfless service'],['UNITY','Together as one'],['FIREWORKS','Sparkly sky show']];
+let wi=-1,wo=[],wg='';
+function word(){wi=(wi+1)%W.length;if(!wo.length||wi==0)wo=sh(W);wr()}
+function wr(){const [w,h]=wo[wi];wg='';$('#wh').textContent='Hint: '+h;$('#wm').textContent='';$('#wa').innerHTML='';$('#wt').innerHTML='';
+let s=w;while(s==w&&w.length>3)s=sh(w).join('');[...s].forEach(ch=>{const b=document.createElement('button');b.textContent=ch;b.onclick=()=>{b.disabled=true;b.style.opacity=.3;wg+=ch;$('#wa').innerHTML+='<span>'+ch+'</span>';if(wg.length==w.length)$('#wm').textContent=wg==w?'🎉 Yes! '+w:'Not quite. Tap Reset letters.'};$('#wt').append(b)})}
+$('#wr').onclick=wr;$('#wn').onclick=word;
+// Challenges
+const C=['Find someone in line wearing the same color as you.','Everyone say “Happy Diwali” in a different language.','Whisper-pass: tell the story of the tetodi in one sentence each.','Name 5 sweets you love, one per person.','Do a silent “diya glow” with your hands. Who has the best flame?','Count how many diyas you can spot on the posters.','Tell your family one small way you helped someone this week.','Everyone shares their favorite Diwali memory.','Make up a 3-word rule for kindness.','Guess a stranger’s favorite sweet. (Ask nicely!)','Say “Jai Swaminarayan” with your biggest smile.','Name one way your family can help the community together.'];
+let ci=-1,co=[];$('#cb').onclick=()=>{if(++ci>=co.length){co=sh(C);ci=0}$('#cc').textContent=co[ci]};
+</script></body></html>
